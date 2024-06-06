@@ -6,11 +6,11 @@ import matplotlib.pyplot as plt
 def creer_dataframe():
     df = pd.read_csv('Census_2016_2021.csv')  # On charge le fichier csv grace au script de preprocessing
     municipalites = df[df['Type'] == 'MÉ'].reset_index(drop=True)  # Filtrage des éléments de type MÉ à partir du csv
-    municipalites.head() # Création de la Dataframe
+    municipalites.head() # Création de la df
     return municipalites
 
 def afficher_nb_municipalites(municipalites):
-    print(f'\nLe nombre de municipalités est de : {municipalites.shape[0]}\n')  # On cherche le nombre de lignes de la DataFrame
+    print(f'\nLe nombre de municipalités est de : {municipalites.shape[0]}\n')  # On extrait le nombre de lignes de la df
     return
 
 def calculer_population_moyenne(municipalites):
@@ -23,7 +23,7 @@ def calculer_population_moyenne(municipalites):
 
 def tracer_nuage_points(municipalites):
 
-    municipalites['PctAcc'] = 100 * (municipalites['Pop21'] - municipalites['Pop16']) / municipalites['Pop16'] # Calculer le pourcentage d'accroissement de la population de 2016 à 2021 et créer une nouvelle colonne dans la df
+    municipalites['PctAcc'] = 100 * (municipalites['Pop21'] - municipalites['Pop16']) / municipalites['Pop16'] # Calcul du pourcentage d'accroissement de la population de 2016 à 2021 et créer une nouvelle colonne dans la df
     municipalites.head()
 
     plt.rcParams['figure.autolayout'] = True
@@ -39,7 +39,7 @@ def tracer_nuage_points(municipalites):
     return
 def classer_et_tracer_municipalites(municipalites):
 
-    # Calcul du nombre de municipalités dans chaque catégorie de population demandée
+    # Calcul du nombre de municipalités dans chaque catégorie de population demandée avec la fct 'sum()'
     inf2000 = (municipalites['Pop21'] < 2000).sum()
     b2000_9999 = ((municipalites['Pop21'] >= 2000) & (municipalites['Pop21'] <= 9999)).sum()
     b10000_24999 = ((municipalites['Pop21'] >= 10000) & (municipalites['Pop21'] <= 24999)).sum()
@@ -62,6 +62,7 @@ def classer_et_tracer_municipalites(municipalites):
     plt.show()
     return
 
+# Appel des fonctions dans l'ordre
 municipalites = creer_dataframe()
 afficher_nb_municipalites(municipalites)
 calculer_population_moyenne(municipalites)
